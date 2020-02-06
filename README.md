@@ -1,2 +1,2 @@
-# okcs-web
-Ottawa Korean Community School Web Server (Prisma+Express+React+React Native)
+# Ottawa Korean Community School Web Server
+Stack used: Prisma, Express, React, React Native
