@@ -1,0 +1,62 @@
+type User {
+  id: ID!                     @id
+  username: String!           @unique
+  createdAt: DateTime!        @createdAt
+  email: String!              @unique
+  firstName: String!
+  lastName: String!
+  authorizationLevel: String! @default(value: "defaultUser")
+  posts: [Post!]!             @relation(name: "PostAuthor", onDelete: CASCADE)
+  comments: [Comment!]!       @relation(name: "CommentAuthor", onDelete: CASCADE)
+  bookmarks: [Post!]!         @relation(name: "BookmarkAuthor", onDelete: CASCADE)
+  MessageRooms: [MessageRoom!]! @relation(name: "MessageRoomParticipant", onDelete: CASCADE)
+  loginSecret: String        
+}
+
+type Post {
+  id: ID!                     @id
+  user: User!                 @relation(name: "PostAuthor", onDelete: SET_NULL)
+  createdAt: DateTime!        @createdAt
+  files: [File!]!             @relation(name: "PostFiles", onDelete: CASCADE)
+  bookmarks: [Bookmark!]!     @relation(name: "PostBookmarks", onDelete: CASCADE)
+  comments: [Comment!]!       @relation(name: "PostComments", onDelete: CASCADE)
+}
+
+type File {
+  id: ID! @id
+  url: String!
+  post: Post!                 @relation(name: "PostFiles", onDelete: SET_NULL)
+}
+
+type Bookmark {
+  id: ID! @id
+  user: User!
+  post: Post!                 @relation(name: "PostBookmarks", onDelete: SET_NULL)            
+}
+
+type Comment {
+  id: ID! @id
+  text: String!
+  user: User!                 @relation(name: "CommentAuthor", onDelete: SET_NULL)
+  post: Post!                 @relation(name: "PostComments", onDelete: SET_NULL)
+}
+
+type Classroom {
+  id: ID!                     @id
+  instructor: User!           @relation(name: "ClassroomInstructor", onDelete: SET_NULL)
+  students: User!             @relation(name: "ClassroomUser", onDelete: SET_NULL)
+}
+
+type MessageRoom {
+  id: ID!                     @id
+  participants: [User!]!      @relation(name: "MessageRoomParticipant", onDelete: CASCADE)
+  messages: [Message!]!       @relation(name:"MessageRoomMessages", onDelete: CASCADE)
+}
+
+type Message{
+  id: ID!                     @id
+  text: String!
+  room: MessageRoom!          @relation(name:"MessageRoomMessages", onDelete: SET_NULL)
+  from: User!                 @relation(name:"MessageFrom")         
+  to: User!                   @relation(name:"MessageTo")
+}

@@ -1,0 +1,64 @@
+scalar DateTime
+
+type User {
+  id: ID!                     
+  username: String!           
+  createdAt: DateTime!        
+  email: String!              
+  firstName: String!
+  lastName: String!
+  authorizationLevel: String! 
+  posts: [Post!]!             
+  comments: [Comment!]!       
+  bookmarks: [Post!]!         
+  MessageRooms: [MessageRoom]!
+  loginSecret: String
+}
+
+type Post {
+  id: ID!                     
+  user: User!                 
+  createdAt: DateTime!        
+  files: [File!]!             
+  bookmarks: [Bookmark!]!     
+  comments: [Comment!]!       
+}
+
+type File {
+  id: ID! 
+  url: String!
+  post: Post!                 
+}
+
+type Bookmark {
+  id: ID! 
+  user: User!
+  post: Post!                             
+}
+
+type Comment {
+  id: ID! 
+  text: String!
+  user: User!                 
+  post: Post!                 
+}
+
+type Classroom {
+  id: ID!                     
+  instructor: User!            
+  students: User!            
+}
+
+type MessageRoom {
+  id: ID!                     
+  participants: [User!]!      
+  messages: [Message!]!   
+}
+
+type Message{
+  id: ID!                     
+  text: String!
+  room: MessageRoom!          
+  from: User!                          
+  to: User!                   
+}
