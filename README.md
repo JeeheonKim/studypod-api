@@ -1,5 +1,5 @@
 # Ottawa Korean Community School Web Server
-OKCS Web API with Prisma, Express
+OKCS Web API with Prisma, Express, GraphQL
 
 ### Finding contributors
 Anybody willing to help develop this project, please shoot me a message.
